@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height : 100vh;
+            margin : 0px;
+            padding : 0px;
+        }
+        
+        body canvas{
+            width : 100vw !important;
+            height : 100% !important;
+        }
+        body::-webkit-scrollbar{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    
+
+
+    <script src="./lib/three.min.js"></script>
+    <script src="./lib/fflate.min.js"></script>
+    <script src="./lib/FBXLoader.js"></script>
+    <script src="./lib/OrbitControls.js"></script>
+    <script src="./js/GamePad.js"></script>
+    <script src="./js/game_05.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+            
+            const game = new Game();
+            window.game = game;
+           
+        })
+    </script>
+ 
+
+ <select name="" id="changeAction" onchange="javascript:game.changeAction()" style="position:fixed;left:5vw;top:5vh;z-index:999">     
+        <option selected value="Idle">IDLE</option>
+        <option  value="Run">RUN</option>
+        <option  value="Walk">WALK</option>
+        <option  value="BackWard">BACK</option>
+        <option  value="Jump">JUMP</option>
+    </select>
+  
+</body>
+</html>
