@@ -12,7 +12,7 @@
 | **모델** | FBX (`FBXLoader.js`), 압축 해제용 `fflate.min.js` |
 | **카메라** | `OrbitControls.js` (마우스 궤도), 인게임은 플레이어 추적 카메라 |
 | **빌드 도구** | 없음 — 순수 HTML / JS, 로컬 정적 서버로 실행 |
-| **에디터** | VS Code 등 (`.vscode/launch.json`에 Live Server 예시 가능) |
+| **에디터 / 디버그** | VS Code — `.vscode/launch.json`에서 Chrome을 `http://localhost:8080`으로 연결 (아래 Python 서버와 포트 맞춤) |
 
 ---
 
@@ -34,20 +34,27 @@
 
 ```
 03_JS_LIB_RACOON/
-├── index.html          # 진입점, 스크립트 로드·기본 UI(애니 선택 등)
-├── assets/             # FBX 모델 (예: Raccoon_add_jump.fbx, RaccoonAction.fbx)
+├── index.html              # 진입점, 스크립트 로드·기본 UI(애니 선택 등)
+├── assets/
+│   ├── Raccoon_add_jump.fbx   # 플레이어 메시·애니 (`game_05.js`에서 로드)
+│   ├── RaccoonAction.fbx      # 애니 클립 병합용 (`game_05.js`에서 로드)
+│   ├── Raccoon.fbx            # 초기 실습용 (`game_01.js` 등에서 로드)
+│   └── Palette01.png          # 에셋에 포함 (필요 시 모델·머티리얼과 연동)
 ├── lib/
 │   ├── three.min.js
 │   ├── fflate.min.js
 │   ├── FBXLoader.js
 │   └── OrbitControls.js
 ├── js/
-│   ├── game_05.js      # 메인 게임 로직 (Game 클래스)
-│   └── GamePad.js      # 조이스틱·키보드 입력
+│   ├── game_05.js          # 메인 게임 로직 (Game 클래스) — index.html이 로드
+│   ├── game_01.js … game_04.js  # 단계별/이전 실습 스크립트 (현재 진입점 미사용)
+│   └── GamePad.js          # 가상 조이스틱·키보드 입력
+├── .vscode/
+│   └── launch.json         # Chrome 디버그용 (localhost:8080)
 └── README.md
 ```
 
-> 실제 메인 스크립트는 `index.html`에서 `game_05.js`를 로드합니다.
+> `index.html`은 `GamePad.js` 다음에 **`game_05.js`만** 로드합니다. `game_01`~`game_04`는 참고·실습용으로 남아 있습니다.
 
 ---
 
@@ -64,7 +71,7 @@
 
    브라우저에서 `http://localhost:8080` 접속.
 
-2. **VS Code**: Live Server 등 확장으로 `index.html`을 서빙해도 됩니다.
+2. **VS Code**: Live Server 등으로 같은 루트를 서빙해도 됩니다. (F5로 Chrome을 띄울 때는 `launch.json`과 서버 **포트가 같아야** 합니다.)
 
 ---
 
@@ -83,8 +90,8 @@
 
 ## 에셋·경로
 
-- FBX는 코드상 `./assets/` 기준 경로로 로드됩니다.  
-- `assets` 폴더와 파일명이 저장소와 일치하는지 확인하세요.
+- 게임 실행에 쓰이는 FBX는 `game_05.js`에서 `./assets/Raccoon_add_jump.fbx`, `./assets/RaccoonAction.fbx`로 로드됩니다.  
+- 경로·파일명이 위와 다르면 로더 오류가 나므로 `assets` 내용을 맞춰 두세요. `game_01`~`game_04`를 켜보려면 해당 스크립트가 기대하는 FBX 이름도 필요합니다.
 
 ---
 
